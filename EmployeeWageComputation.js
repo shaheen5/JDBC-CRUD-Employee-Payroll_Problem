@@ -29,7 +29,8 @@ function calculateDailyWage(empHrs) {
 //declare variables
 let totalEmpHrs = 0 ;
 let totalWorkingDays = 0 ;
-let empDailyWageArray = new Array();
+let empDailyWageArray = new Array(); //declare array
+let empDailyWageMap = new Map();     //declare map
 
 //calculating wages for a month or till no. of working hours 
 while (totalEmpHrs <= MAX_HRS_IN_MONTH  && totalWorkingDays < NUM_OF_WORKING_DAYS){
@@ -39,7 +40,10 @@ while (totalEmpHrs <= MAX_HRS_IN_MONTH  && totalWorkingDays < NUM_OF_WORKING_DAY
     //call function to get employee work hours
     let empHrs = getWorkingHours(empCheck);
     totalEmpHrs += empHrs;
+    //adding daily wages in array
     empDailyWageArray.push(calculateDailyWage(empHrs));
+    //adding wages to map day wise
+    empDailyWageMap.set(totalWorkingDays,calculateDailyWage(empHrs));
 }
 //calculate wage
 let empWage = calculateDailyWage(totalEmpHrs);
@@ -59,6 +63,11 @@ function totalWages(totalWage,dailyWage){
     return totalWage + dailyWage;
 }
 console.log("UC7A - Emp Wage with reduce : "+empDailyWageArray.reduce(totalWages,0));
+
+//UC 7A - Calculate Wage Using Map
+console.log(empDailyWageMap);       //display wage map
+console.log("UC7A - Emp Wage Map Total Wage : "+
+            Array.from(empDailyWageMap.values()).reduce(totalWages,0));
 
 // UC 7B - Show the Day along with Dail Wage using Array map helper function
 let dailyCounter = 0;
